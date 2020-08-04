@@ -1,8 +1,9 @@
 /**
 Create an error from multiple errors.
 */
-declare class AggregateError extends Error implements Iterable<Error> {
-	readonly name: 'AggregateError';
+declare class AggregateError<T extends Error = Error> extends Error
+	implements Iterable<T> {
+	readonly name: "AggregateError";
 
 	/**
 	@param errors - If a string, a new `Error` is created with the string as the error message. If a non-Error object, a new `Error` is created with all properties from the object copied over.
@@ -43,9 +44,9 @@ declare class AggregateError extends Error implements Iterable<Error> {
 	//=> [Error: baz]
 	```
 	*/
-	constructor(errors: ReadonlyArray<Error | {[key: string]: any} | string>);
+	constructor(errors: ReadonlyArray<T | { [key: string]: any } | string>);
 
-	[Symbol.iterator](): IterableIterator<Error>;
+	[Symbol.iterator](): IterableIterator<T>;
 }
 
 export = AggregateError;
